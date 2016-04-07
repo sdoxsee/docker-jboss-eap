@@ -6,16 +6,14 @@ MAINTAINER Stephen Doxsee
 
 # Set the JBOSS_VERSION env variable
 ENV JBOSS_VERSION 6.4.0
-ENV JBOSS_SHA256 27a6fd62a8bc4f660970ab282a4bc013934275e47a850a974db6c7d2c62cc50e
+ENV JBOSS_SHA1 9ac2979fe92040a039a3a3db8b4ce8d166e2c872
 ENV JBOSS_HOME /opt/jboss/jboss-eap-6.4/
-
-COPY files/jboss-eap-$JBOSS_VERSION.zip $HOME
 
 # Add the JBoss distribution to /opt, and make jboss the owner of the extracted zip content
 # Make sure the distribution is available from a well-known place
 RUN cd $HOME \
-    && curl -O https://media.githubusercontent.com/media/sdoxsee/docker-jboss-eap/master/files/jboss-eap-$JBOSS_VERION.zip \
-    && shasum -a 256 jboss-eap-$JBOSS_VERSION.zip | grep $JBOSS_SHA256 \
+    && curl --remote-name https://media.githubusercontent.com/media/sdoxsee/docker-jboss-eap/master/files/jboss-eap-6.4.0.zip \
+    && sha1sum jboss-eap-$JBOSS_VERSION.zip | grep $JBOSS_SHA1 \
     && unzip jboss-eap-$JBOSS_VERSION.zip \
     && rm jboss-eap-$JBOSS_VERSION.zip
 
